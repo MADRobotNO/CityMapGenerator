@@ -19,26 +19,79 @@ building_types = (("bank", 0),
 
 
 arr = []  # map
+flagB = False
+flagS = False
 
 # creating a map 10x10
 for line in range(10):
     arr.append([])
     for row in range(10):
-        types = random.randrange(1,5)
-        if types < 2:
-            arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
-            # print("Building", line, row)
+
+        types = random.randrange(1, 5)
+
+        # first line
+        if line == 0:
+
+            # 0-1 == building
+            if types < 2:
+                arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
+
+            # 2-4 == street
+            else:
+                arr[line].append(Street("street"))
+
+        # other lines
         else:
-            if line > 0 and row > 0:
-                if isinstance(arr[line][row-1], Street) or isinstance(arr[line-1][row], Street):
+
+            # 0-1 == building
+            if types < 2:
+                if row > 0:
+                    if isinstance(arr[line][row-1], Building) and isinstance(arr[line-1][row], Building) and not flagB:
+                        arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
+                        flagB = True
+                    elif isinstance(arr[line][row-1], Building) and isinstance(arr[line-1][row], Building) and flagB:
+                        arr[line].append(Street("street"))
+                        flagB = False
+                    else:
+                        arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
+
+                else:
+                    arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
+
+                # arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
+                # print("Building", line, row)
+
+            # 2-4 == street
+            else:
+                if row > 0:
+                    if isinstance(arr[line][row-1], Street) and isinstance(arr[line-1][row], Street) and not flagS:
+                        arr[line].append(Street("street"))
+                        flagS = True
+                    elif isinstance(arr[line][row-1], Street) and isinstance(arr[line-1][row], Street) and flagS:
+                        arr[line].append(Building("suilding", building_types[random.randrange(0, 13)]))
+                        flagS = False
+                    elif isinstance(arr[line][row-1], Street) or isinstance(arr[line-1][row], Street):
                         arr[line].append(Street("street"))
                         # print("Street2", line, row)
+                    # elif isinstance(arr[line][row-1], Street) or isinstance(arr[line-1][row], Street):
+                    #     arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
+                    #     flagS = False
+
+                    # if street cannot be placed, try to place building
+                    else:
+                        if isinstance(arr[line][row - 1], Building) and isinstance(arr[line - 1][row], Building) and not flagB:
+                            arr[line].append(Building("suilding", building_types[random.randrange(0, 13)]))
+                            flagB = True
+                        elif isinstance(arr[line][row - 1], Building) and isinstance(arr[line - 1][row], Building) and flagB:
+                            arr[line].append(Street("street"))
+                            flagB = False
+                        else:
+                            arr[line].append(Building("suilding", building_types[random.randrange(0, 13)]))
+                        # print("ExceptB", line, row)
+                        # arr[line].append(Building("suilding", building_types[random.randrange(0, 13)]))
                 else:
-                    # print("ExceptB", line, row)
-                    arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
-            else:
-                arr[line].append(Street("street"))  # first line is independent
-                # print("Street1", line, row)
+                    arr[line].append(Street("street"))  # first line is independent
+                    # print("Street1", line, row)
 
 # iterate thru array and print out
 for line in arr:
