@@ -1,5 +1,7 @@
 import random
 
+from operator import xor
+
 from Building import Building
 from Street import Street
 
@@ -28,11 +30,11 @@ for line in range(10):
     arr.append([])
     for row in range(10):
 
-        types = random.randrange(1, 5)
+        types = random.randrange(1, 10)
 
         # first line
         if line == 0:
-
+            types = random.randrange(1, 4)
             # 0-1 == building
             if types < 2:
                 arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
@@ -65,19 +67,16 @@ for line in range(10):
             # 2-4 == street
             else:
                 if row > 0:
-                    if isinstance(arr[line][row-1], Street) and isinstance(arr[line-1][row], Street) and not flagS:
-                        arr[line].append(Street("street"))
-                        flagS = True
-                    elif isinstance(arr[line][row-1], Street) and isinstance(arr[line-1][row], Street) and flagS:
-                        arr[line].append(Building("suilding", building_types[random.randrange(0, 13)]))
-                        flagS = False
-                    elif isinstance(arr[line][row-1], Street) or isinstance(arr[line-1][row], Street):
-                        arr[line].append(Street("street"))
-                        # print("Street2", line, row)
-                    # elif isinstance(arr[line][row-1], Street) or isinstance(arr[line-1][row], Street):
-                    #     arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
+                    # if isinstance(arr[line][row-1], Street) and isinstance(arr[line-1][row], Street) and not flagS:
+                    #     arr[line].append(Street("street"))
+                    #     flagS = True
+                    # elif isinstance(arr[line][row-1], Street) and isinstance(arr[line-1][row], Street) and flagS:
+                    #     arr[line].append(Building("suilding", building_types[random.randrange(0, 13)]))
                     #     flagS = False
-
+                    # elif isinstance(arr[line][row-1], Street) or isinstance(arr[line-1][row], Street):
+                    #     arr[line].append(Street("street"))
+                    if xor(bool(isinstance(arr[line][row-1], Street)), bool(isinstance(arr[line-1][row], Street))):
+                        arr[line].append(Street("street"))
                     # if street cannot be placed, try to place building
                     else:
                         if isinstance(arr[line][row - 1], Building) and isinstance(arr[line - 1][row], Building) and not flagB:
@@ -88,19 +87,23 @@ for line in range(10):
                             flagB = False
                         else:
                             arr[line].append(Building("suilding", building_types[random.randrange(0, 13)]))
-                        # print("ExceptB", line, row)
-                        # arr[line].append(Building("suilding", building_types[random.randrange(0, 13)]))
+
                 else:
                     arr[line].append(Street("street"))  # first line is independent
-                    # print("Street1", line, row)
 
+number_of_buildings = 0
+number_of_streets = 0
 # iterate thru array and print out
 for line in arr:
     for obj in line:
         if isinstance(obj, Building):
+            number_of_buildings += 1
             print("B", end=" ")
         if isinstance(obj, Street):
+            number_of_streets += 1
             print("*", end=" ")
     print("")
 
-
+print("")
+print("Number of buildings:", number_of_buildings)
+print("Number of streets:", number_of_streets)
