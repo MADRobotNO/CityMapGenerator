@@ -3,6 +3,7 @@ import random
 from Building import Building
 from Street import Street
 
+# types of buildings (name of type and level of inhabitants in scale from 0 to 4)
 building_types = (("bank", 0),
                   ("house", 1),
                   ("pharmacy", 0),
