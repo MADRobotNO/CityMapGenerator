@@ -173,52 +173,52 @@ class Gui:
         street_element = PhotoImage()
 
         if l == 0 and r == 0 and u == 0 and d == 0:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetRound.png")
+            street_element = PhotoImage(file="img\street\streetRound.png")
 
         elif l == 1 and r == 1 and u == 1 and d == 1:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetCross.png")
+            street_element = PhotoImage(file="img\street\streetCross.png")
 
         elif l == 0 and r == 0 and u == 1 and d == 1:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetUpDown.png")
+            street_element = PhotoImage(file="img\street\streetUpDown.png")
 
         elif l == 1 and r == 1 and u == 0 and d == 0:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetLR.png")
+            street_element = PhotoImage(file="img\street\streetLR.png")
 
         elif l == 0 and r == 1 and u == 1 and d == 1:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetUDR.png")
+            street_element = PhotoImage(file="img\street\streetUDR.png")
 
         elif l == 1 and r == 0 and u == 1 and d == 1:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetUDL.png")
+            street_element = PhotoImage(file="img\street\streetUDL.png")
 
         elif l == 1 and r == 1 and u == 1 and d == 0:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetULR.png")
+            street_element = PhotoImage(file="img\street\streetULR.png")
 
         elif l == 1 and r == 1 and u == 0 and d == 1:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetDLR.png")
+            street_element = PhotoImage(file="img\street\streetDLR.png")
 
         elif l == 1 and r == 0 and u == 1 and d == 0:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetUL.png")
+            street_element = PhotoImage(file="img\street\streetUL.png")
 
         elif l == 0 and r == 1 and u == 1 and d == 0:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetUR.png")
+            street_element = PhotoImage(file="img\street\streetUR.png")
 
         elif l == 1 and r == 0 and u == 0 and d == 1:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetDL.png")
+            street_element = PhotoImage(file="img\street\streetDL.png")
 
         elif l == 0 and r == 1 and u == 0 and d == 1:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetDR.png")
+            street_element = PhotoImage(file="img\street\streetDR.png")
 
         elif l == 0 and r == 0 and u == 1 and d == 0:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetUEnd.png")
+            street_element = PhotoImage(file="img\street\streetUEnd.png")
 
         elif l == 0 and r == 0 and u == 0 and d == 1:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetDEnd.png")
+            street_element = PhotoImage(file="img\street\streetDEnd.png")
 
         elif l == 1 and r == 0 and u == 0 and d == 0:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetLEnd.png")
+            street_element = PhotoImage(file="img\street\streetLEnd.png")
 
         elif l == 0 and r == 1 and u == 0 and d == 0:
-            street_element = PhotoImage(file="D:\Google\Python\PycharmProjects\CityMapGenerator\img\street\streetREnd.png")
+            street_element = PhotoImage(file="img\street\streetREnd.png")
 
 
         return street_element
