@@ -1,5 +1,6 @@
 import random
 
+
 class Building:
     def __init__(self, name, building_data):
         self.name = name
@@ -7,6 +8,7 @@ class Building:
         self.inhabited = building_data[1]
         self.inhabitants = 0
         # self.address = address
+
         if self.inhabited is 1:
             self.inhabitants_generaotr(1, 8)
         if self.inhabited is 2:

@@ -1,109 +1,103 @@
 import random
 
-from operator import xor
+from operator import xor  # either operator
 
 from Building import Building
 from Street import Street
 
-# types of buildings (name of type and level of inhabitants in scale from 0 to 4)
-building_types = (("bank", 0),
-                  ("house", 1),
-                  ("pharmacy", 0),
-                  ("shop", 0),
-                  ("police station", 0),
-                  ("fire station", 0),
-                  ("hospital", 0),
-                  ("big apartment building", 4),
-                  ("medium apartment building", 3),
-                  ("small apartment building", 2),
-                  ("health center", 0),
-                  ("school", 0),
-                  ("kindergarten", 0))
 
+class Generator:
+    def __init__(self, size_x, size_y):
+        self.size_x = size_x
+        self.size_y = size_y
 
-arr = []  # map
-flagB = False
-flagS = False
+        # types of buildings (name of type and level of inhabitants in scale from 0 to 4)
+        self.building_types = (("bank", 0),
+                          ("house", 1),
+                          ("pharmacy", 0),
+                          ("shop", 0),
+                          ("police station", 0),
+                          ("fire station", 0),
+                          ("hospital", 0),
+                          ("big apartment building", 4),
+                          ("medium apartment building", 3),
+                          ("small apartment building", 2),
+                          ("health center", 0),
+                          ("school", 0),
+                          ("kindergarten", 0))
 
-# creating a map 10x10
-for line in range(10):
-    arr.append([])
-    for row in range(10):
+        self.generated_map = []  # map
+        self.flagB = False
+        self.flagS = False  # not in yet in
 
-        types = random.randrange(1, 10)
+    # creating a map of given size
+    def create_map(self):
 
-        # first line
-        if line == 0:
-            types = random.randrange(1, 4)
-            # 0-1 == building
-            if types < 2:
-                arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
+        for line in range(self.size_y):
+            self.generated_map.append([])
 
-            # 2-4 == street
-            else:
-                arr[line].append(Street("street"))
+            for row in range(self.size_x):
 
-        # other lines
-        else:
+                # choose randomly type of building
+                types = random.randrange(1, 9)
 
-            # 0-1 == building
-            if types < 2:
-                if row > 0:
-                    if isinstance(arr[line][row-1], Building) and isinstance(arr[line-1][row], Building) and not flagB:
-                        arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
-                        flagB = True
-                    elif isinstance(arr[line][row-1], Building) and isinstance(arr[line-1][row], Building) and flagB:
-                        arr[line].append(Street("street"))
-                        flagB = False
+                # first line of map
+                if line == 0:
+
+                    # first line can have bigger chance to get building
+                    types = random.randrange(1, 4)
+
+                    # 0-1 == building
+                    if types < 2:
+                        self.generated_map[line].append(Building("building", self.building_types[random.randrange(0, 13)]))
+
+                    # 2-4 == street
                     else:
-                        arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
+                        self.generated_map[line].append(Street("street"))
 
+                # other lines of map
                 else:
-                    arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
 
-                # arr[line].append(Building("building", building_types[random.randrange(0, 13)]))
-                # print("Building", line, row)
+                    # 0-1 == building
+                    if types < 2:
 
-            # 2-4 == street
-            else:
-                if row > 0:
-                    # if isinstance(arr[line][row-1], Street) and isinstance(arr[line-1][row], Street) and not flagS:
-                    #     arr[line].append(Street("street"))
-                    #     flagS = True
-                    # elif isinstance(arr[line][row-1], Street) and isinstance(arr[line-1][row], Street) and flagS:
-                    #     arr[line].append(Building("suilding", building_types[random.randrange(0, 13)]))
-                    #     flagS = False
-                    # elif isinstance(arr[line][row-1], Street) or isinstance(arr[line-1][row], Street):
-                    #     arr[line].append(Street("street"))
-                    if xor(bool(isinstance(arr[line][row-1], Street)), bool(isinstance(arr[line-1][row], Street))):
-                        arr[line].append(Street("street"))
-                    # if street cannot be placed, try to place building
-                    else:
-                        if isinstance(arr[line][row - 1], Building) and isinstance(arr[line - 1][row], Building) and not flagB:
-                            arr[line].append(Building("suilding", building_types[random.randrange(0, 13)]))
-                            flagB = True
-                        elif isinstance(arr[line][row - 1], Building) and isinstance(arr[line - 1][row], Building) and flagB:
-                            arr[line].append(Street("street"))
-                            flagB = False
+                        # row object has to be other than first
+                        if row > 0:
+                            if isinstance(self.generated_map[line][row-1], Building) and isinstance(self.generated_map[line-1][row], Building) and not self.flagB:
+                                self.generated_map[line].append(Building("building", self.building_types[random.randrange(0, 13)]))
+                                self.flagB = True
+                            elif isinstance(self.generated_map[line][row-1], Building) and isinstance(self.generated_map[line-1][row], Building) and self.flagB:
+                                self.generated_map[line].append(Street("street"))
+                                self.flagB = False
+                            else:
+                                self.generated_map[line].append(Building("building", self.building_types[random.randrange(0, 13)]))
+
+                        # first row object is independent
                         else:
-                            arr[line].append(Building("suilding", building_types[random.randrange(0, 13)]))
+                            self.generated_map[line].append(Building("building", self.building_types[random.randrange(0, 13)]))
 
-                else:
-                    arr[line].append(Street("street"))  # first line is independent
+                    # 2-4 == street
+                    else:
 
-number_of_buildings = 0
-number_of_streets = 0
-# iterate thru array and print out
-for line in arr:
-    for obj in line:
-        if isinstance(obj, Building):
-            number_of_buildings += 1
-            print("B", end=" ")
-        if isinstance(obj, Street):
-            number_of_streets += 1
-            print("*", end=" ")
-    print("")
+                        # row object has to be other than first
+                        if row > 0:
 
-print("")
-print("Number of buildings:", number_of_buildings)
-print("Number of streets:", number_of_streets)
+                            # street can only have 1 neighbour street (either up or left)...
+                            if xor(bool(isinstance(self.generated_map[line][row-1], Street)), bool(isinstance(self.generated_map[line-1][row], Street))):
+                                self.generated_map[line].append(Street("street"))  # ... if so, place street
+
+                            # if street cannot be placed, try to place building
+                            else:
+                                if isinstance(self.generated_map[line][row - 1], Building) and isinstance(self.generated_map[line - 1][row], Building) and not self.flagB:
+                                    self.generated_map[line].append(Building("suilding", self.building_types[random.randrange(0, 13)]))
+                                    self.flagB = True
+                                elif isinstance(self.generated_map[line][row - 1], Building) and isinstance(self.generated_map[line - 1][row], Building) and self.flagB:
+                                    self.generated_map[line].append(Street("street"))
+                                    self.flagB = False
+                                else:
+                                    self.generated_map[line].append(Building("suilding", self.building_types[random.randrange(0, 13)]))
+
+                        # first row object is independent
+                        else:
+                            self.generated_map[line].append(Street("street"))
+        return self.generated_map
