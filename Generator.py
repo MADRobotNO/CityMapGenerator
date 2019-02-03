@@ -16,13 +16,13 @@ class Generator:
                           ("house", 1),
                           ("pharmacy", 0),
                           ("shop", 0),
+                          ("office", 0),
                           ("police station", 0),
                           ("fire station", 0),
                           ("hospital", 0),
                           ("big apartment building", 4),
                           ("medium apartment building", 3),
                           ("small apartment building", 2),
-                          ("health center", 0),
                           ("school", 0),
                           ("kindergarten", 0))
 
@@ -38,14 +38,15 @@ class Generator:
 
             for row in range(self.size_x):
 
-                # choose randomly type of building
-                types = random.randrange(1, 9)
+                # choose randomly type of element (street or building), higher range gives more chance to get street
+                # max ratio is about 55:45 for roads
+                types = random.randrange(0, 6)
 
                 # first line of map
                 if line == 0:
 
                     # first line can have bigger chance to get building
-                    types = random.randrange(1, 4)
+                    types = random.randrange(0, 4)
 
                     # 0-1 == building
                     if types < 2:

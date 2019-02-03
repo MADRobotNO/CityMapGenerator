@@ -10,11 +10,11 @@ class Gui:
         self.window = Tk()
         self.window.title = "City Map Generator"
 
+        # arrays to hold reference to PhotoImage
         self.street_pictures = []
+        self.buildings_pictures = []
 
     def create_map(self):
-
-        building_image = PhotoImage(file="building.png")
 
         for row in range(self.size_y):
 
@@ -32,7 +32,9 @@ class Gui:
                     # building
                     if isinstance(self.map_obj[row][column], Building):
 
-                        button = Button(self.window, image=building_image, width=50, height=50, border=0)
+                        self.buildings_pictures.append(self.pick_building_type(self.map_obj[row][column].building_type))
+
+                        button = Button(self.window, image=self.buildings_pictures[len(self.buildings_pictures)-1], width=50, height=50, border=0)
                         button.grid(column=column, row=row)
 
                     # street
@@ -76,8 +78,10 @@ class Gui:
 
                     # building
                     if isinstance(self.map_obj[row][column], Building):
-                        # button = tk.Button(self.window, text="test", font=("Arial", 20, "bold"), width=5, height=2)
-                        button = Button(self.window, image=building_image, width=50, height=50, border=0)
+
+                        self.buildings_pictures.append(self.pick_building_type(self.map_obj[row][column].building_type))
+
+                        button = Button(self.window, image=self.buildings_pictures[len(self.buildings_pictures)-1], width=50, height=50, border=0)
                         button.grid(column=column, row=row)
 
                     # street
@@ -126,8 +130,10 @@ class Gui:
 
                     # building
                     if isinstance(self.map_obj[row][column], Building):
-                        # button = tk.Button(self.window, text="test", font=("Arial", 20, "bold"), width=5, height=2)
-                        button = Button(self.window, image=building_image, width=50, height=50, border=0)
+
+                        self.buildings_pictures.append(self.pick_building_type(self.map_obj[row][column].building_type))
+
+                        button = Button(self.window, image=self.buildings_pictures[len(self.buildings_pictures)-1], width=50, height=50, border=0)
                         button.grid(column=column, row=row)
 
                     # street
@@ -220,5 +226,49 @@ class Gui:
         elif l == 0 and r == 1 and u == 0 and d == 0:
             street_element = PhotoImage(file="img\street\streetREnd.png")
 
-
         return street_element
+
+    def pick_building_type(self, building):
+
+        building_icon = PhotoImage()
+
+        if building == "bank":
+            building_icon = PhotoImage(file="img\\buildings\\bank.png")
+
+        elif building == "house":
+            building_icon = PhotoImage(file="img\\buildings\house.png")
+
+        elif building == "pharmacy":
+            building_icon = PhotoImage(file="img\\buildings\pharmacy.png")
+
+        elif building == "shop":
+            building_icon = PhotoImage(file="img\\buildings\shop.png")
+
+        elif building == "office":
+            building_icon = PhotoImage(file="img\\buildings\office.png")
+
+        elif building == "police station":
+            building_icon = PhotoImage(file="img\\buildings\police.png")
+
+        elif building == "fire station":
+            building_icon = PhotoImage(file="img\\buildings\\fire.png")
+
+        elif building == "hospital":
+            building_icon = PhotoImage(file="img\\buildings\hospital.png")
+
+        elif building == "big apartment building":
+            building_icon = PhotoImage(file="img\\buildings\\buildingHigh.png")
+
+        elif building == "medium apartment building":
+            building_icon = PhotoImage(file="img\\buildings\\buildingMedium.png")
+
+        elif building == "small apartment building":
+            building_icon = PhotoImage(file="img\\buildings\\buildingSmall.png")
+
+        elif building == "school":
+            building_icon = PhotoImage(file="img\\buildings\school.png")
+
+        elif building == "kindergarten":
+            building_icon = PhotoImage(file="img\\buildings\kindergarten.png")
+
+        return building_icon

@@ -23,6 +23,7 @@ for line in map_one:
 print("")
 print("Number of buildings:", number_of_buildings)
 print("Number of streets:", number_of_streets)
+print("Total number of elements:", number_of_streets+number_of_buildings)
 
 gui = Gui(map_one)
 gui.create_map()
