@@ -1,29 +1,30 @@
 from Generator import *
+from StreetGenerator import *
+from StreetGenerator_v2 import *
+
+
 from GUI import *
 
-x = int(input("Enter number of columns: "))
-y = int(input("Enter number of rows: "))
 
-generator = Generator(x, y)
-map_one = generator.create_map()
+x = int(input("Enter number of rows: "))
+y = int(input("Enter number of columns: "))
+# generator = Generator(x, y)
+# streetGenerator = StreetGenerator(x, y)
+streetGenerator_v2 = StreetGenerator_v2(x, y)
 
-number_of_buildings = 0
-number_of_streets = 0
-# iterate thru array and print out
-for line in map_one:
-    for obj in line:
-        if isinstance(obj, Building):
-            number_of_buildings += 1
-            print("B", end=" ")
-        if isinstance(obj, Street):
-            number_of_streets += 1
-            print("*", end=" ")
-    print("")
 
-print("")
-print("Number of buildings:", number_of_buildings)
-print("Number of streets:", number_of_streets)
-print("Total number of elements:", number_of_streets+number_of_buildings)
+# map1 = generator.create_map()
+# map2 = streetGenerator.create_map()
+map3 = streetGenerator_v2.create_map()
 
-gui = Gui(map_one)
-gui.create_map()
+
+# gui1 = Gui(map1)
+# gui1.create_map()
+
+# gui2 = Gui(map2)
+# gui2.create_map()
+
+print("Number of street elements:", len(streetGenerator_v2.road))
+
+gui3 = Gui(map3)
+gui3.create_map()

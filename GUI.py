@@ -14,6 +14,23 @@ class Gui:
         self.street_pictures = []
         self.buildings_pictures = []
 
+        # full screen ratio Y = X*0.528
+        # example: 36/19, 54/28 72/38, 108/57
+        if self.size_x > 70 or self.size_y > 37:
+            print("size 20%")
+            self.el_width = 10
+            self.el_height = 10
+
+        elif self.size_x > 36 or self.size_y > 19:
+            print("size 50%")
+            self.el_width = 25
+            self.el_height = 25
+
+        else:
+            print("size 100%")
+            self.el_width = 50
+            self.el_height = 50
+
     def create_map(self):
 
         for row in range(self.size_y):
@@ -27,14 +44,14 @@ class Gui:
                 # first row
                 if row == 0:
 
-                    u = 0
+                    u = 1
 
                     # building
                     if isinstance(self.map_obj[row][column], Building):
 
                         self.buildings_pictures.append(self.pick_building_type(self.map_obj[row][column].building_type))
 
-                        button = Button(self.window, image=self.buildings_pictures[len(self.buildings_pictures)-1], width=50, height=50, border=0)
+                        button = Button(self.window, image=self.buildings_pictures[len(self.buildings_pictures)-1], width=self.el_width, height=self.el_height, border=0)
                         button.grid(column=column, row=row)
 
                     # street
@@ -42,7 +59,7 @@ class Gui:
 
                         # first column
                         if column == 0:
-                            l = 0
+                            l = 1
 
                             if isinstance(self.map_obj[row][column + 1], Street):
                                 r = 1
@@ -62,7 +79,7 @@ class Gui:
                         # last column
                         else:
 
-                            r = 0
+                            r = 1
                             if isinstance(self.map_obj[row][column - 1], Street):
                                 l = 1
                             if isinstance(self.map_obj[row+1][column], Street):
@@ -70,7 +87,7 @@ class Gui:
 
                         self.street_pictures.append(self.pick_street_element(l, r, u, d))
 
-                        button = Button(self.window, image=self.street_pictures[len(self.street_pictures)-1], width=50, height=50, border=0)
+                        button = Button(self.window, image=self.street_pictures[len(self.street_pictures)-1], width=self.el_width, height=self.el_height, border=0)
                         button.grid(column=column, row=row)
 
                 # other rows
@@ -81,7 +98,7 @@ class Gui:
 
                         self.buildings_pictures.append(self.pick_building_type(self.map_obj[row][column].building_type))
 
-                        button = Button(self.window, image=self.buildings_pictures[len(self.buildings_pictures)-1], width=50, height=50, border=0)
+                        button = Button(self.window, image=self.buildings_pictures[len(self.buildings_pictures)-1], width=self.el_width, height=self.el_height, border=0)
                         button.grid(column=column, row=row)
 
                     # street
@@ -89,7 +106,7 @@ class Gui:
 
                         # first column
                         if column == 0:
-                            l = 0
+                            l = 1
                             if isinstance(self.map_obj[row][column + 1], Street):
                                 r = 1
                             if isinstance(self.map_obj[row+1][column], Street):
@@ -112,7 +129,7 @@ class Gui:
                         # last column
                         else:
 
-                            r = 0
+                            r = 1
                             if isinstance(self.map_obj[row][column - 1], Street):
                                 l = 1
                             if isinstance(self.map_obj[row+1][column], Street):
@@ -122,7 +139,7 @@ class Gui:
 
                         self.street_pictures.append(self.pick_street_element(l, r, u, d))
 
-                        button = Button(self.window, image=self.street_pictures[len(self.street_pictures)-1], width=50, height=50, border=0)
+                        button = Button(self.window, image=self.street_pictures[len(self.street_pictures)-1], width=self.el_width, height=self.el_height, border=0)
                         button.grid(column=column, row=row)
 
                 # last row
@@ -133,7 +150,7 @@ class Gui:
 
                         self.buildings_pictures.append(self.pick_building_type(self.map_obj[row][column].building_type))
 
-                        button = Button(self.window, image=self.buildings_pictures[len(self.buildings_pictures)-1], width=50, height=50, border=0)
+                        button = Button(self.window, image=self.buildings_pictures[len(self.buildings_pictures)-1], width=self.el_width, height=self.el_height, border=0)
                         button.grid(column=column, row=row)
 
                     # street
@@ -141,8 +158,8 @@ class Gui:
 
                         # first column
                         if column == 0:
-                            l = 0
-                            d = 0
+                            l = 1
+                            d = 1
                             if isinstance(self.map_obj[row][column + 1], Street):
                                 r = 1
                             if isinstance(self.map_obj[row - 1][column], Street):
@@ -150,7 +167,7 @@ class Gui:
 
                         # other columns
                         elif self.size_x - 1 > column > 0:
-                            d = 0
+                            d = 1
                             if isinstance(self.map_obj[row][column - 1], Street):
                                 l = 1
                             if isinstance(self.map_obj[row][column + 1], Street):
@@ -160,8 +177,8 @@ class Gui:
 
                         # last column
                         else:
-                            r = 0
-                            d = 0
+                            r = 1
+                            d = 1
                             if isinstance(self.map_obj[row][column - 1], Street):
                                 l = 1
                             if isinstance(self.map_obj[row - 1][column], Street):
@@ -169,7 +186,7 @@ class Gui:
 
                         self.street_pictures.append(self.pick_street_element(l, r, u, d))
 
-                        button = Button(self.window, image=self.street_pictures[len(self.street_pictures)-1], width=50, height=50, border=0)
+                        button = Button(self.window, image=self.street_pictures[len(self.street_pictures)-1], width=self.el_width, height=self.el_height, border=0)
                         button.grid(column=column, row=row)
 
         self.window.mainloop()
@@ -179,52 +196,52 @@ class Gui:
         street_element = PhotoImage()
 
         if l == 0 and r == 0 and u == 0 and d == 0:
-            street_element = PhotoImage(file="img\street\streetRound.png")
+            street_element = PhotoImage(file="img\\street\\streetRound.png")
 
         elif l == 1 and r == 1 and u == 1 and d == 1:
-            street_element = PhotoImage(file="img\street\streetCross.png")
+            street_element = PhotoImage(file="img\\street\\streetCross.png")
 
         elif l == 0 and r == 0 and u == 1 and d == 1:
-            street_element = PhotoImage(file="img\street\streetUpDown.png")
+            street_element = PhotoImage(file="img\\street\\streetUpDown.png")
 
         elif l == 1 and r == 1 and u == 0 and d == 0:
-            street_element = PhotoImage(file="img\street\streetLR.png")
+            street_element = PhotoImage(file="img\\street\\streetLR.png")
 
         elif l == 0 and r == 1 and u == 1 and d == 1:
-            street_element = PhotoImage(file="img\street\streetUDR.png")
+            street_element = PhotoImage(file="img\\street\\streetUDR.png")
 
         elif l == 1 and r == 0 and u == 1 and d == 1:
-            street_element = PhotoImage(file="img\street\streetUDL.png")
+            street_element = PhotoImage(file="img\\street\\streetUDL.png")
 
         elif l == 1 and r == 1 and u == 1 and d == 0:
-            street_element = PhotoImage(file="img\street\streetULR.png")
+            street_element = PhotoImage(file="img\\street\\streetULR.png")
 
         elif l == 1 and r == 1 and u == 0 and d == 1:
-            street_element = PhotoImage(file="img\street\streetDLR.png")
+            street_element = PhotoImage(file="img\\street\\streetDLR.png")
 
         elif l == 1 and r == 0 and u == 1 and d == 0:
-            street_element = PhotoImage(file="img\street\streetUL.png")
+            street_element = PhotoImage(file="img\\street\\streetUL.png")
 
         elif l == 0 and r == 1 and u == 1 and d == 0:
-            street_element = PhotoImage(file="img\street\streetUR.png")
+            street_element = PhotoImage(file="img\\street\\streetUR.png")
 
         elif l == 1 and r == 0 and u == 0 and d == 1:
-            street_element = PhotoImage(file="img\street\streetDL.png")
+            street_element = PhotoImage(file="img\\street\\streetDL.png")
 
         elif l == 0 and r == 1 and u == 0 and d == 1:
-            street_element = PhotoImage(file="img\street\streetDR.png")
+            street_element = PhotoImage(file="img\\street\\streetDR.png")
 
         elif l == 0 and r == 0 and u == 1 and d == 0:
-            street_element = PhotoImage(file="img\street\streetUEnd.png")
+            street_element = PhotoImage(file="img\\street\\streetUEnd.png")
 
         elif l == 0 and r == 0 and u == 0 and d == 1:
-            street_element = PhotoImage(file="img\street\streetDEnd.png")
+            street_element = PhotoImage(file="img\\street\\streetDEnd.png")
 
         elif l == 1 and r == 0 and u == 0 and d == 0:
-            street_element = PhotoImage(file="img\street\streetLEnd.png")
+            street_element = PhotoImage(file="img\\street\\streetLEnd.png")
 
         elif l == 0 and r == 1 and u == 0 and d == 0:
-            street_element = PhotoImage(file="img\street\streetREnd.png")
+            street_element = PhotoImage(file="img\\street\\streetREnd.png")
 
         return street_element
 
@@ -236,25 +253,25 @@ class Gui:
             building_icon = PhotoImage(file="img\\buildings\\bank.png")
 
         elif building == "house":
-            building_icon = PhotoImage(file="img\\buildings\house.png")
+            building_icon = PhotoImage(file="img\\buildings\\house.png")
 
         elif building == "pharmacy":
-            building_icon = PhotoImage(file="img\\buildings\pharmacy.png")
+            building_icon = PhotoImage(file="img\\buildings\\pharmacy.png")
 
         elif building == "shop":
-            building_icon = PhotoImage(file="img\\buildings\shop.png")
+            building_icon = PhotoImage(file="img\\buildings\\shop.png")
 
         elif building == "office":
-            building_icon = PhotoImage(file="img\\buildings\office.png")
+            building_icon = PhotoImage(file="img\\buildings\\office.png")
 
         elif building == "police station":
-            building_icon = PhotoImage(file="img\\buildings\police.png")
+            building_icon = PhotoImage(file="img\\buildings\\police.png")
 
         elif building == "fire station":
             building_icon = PhotoImage(file="img\\buildings\\fire.png")
 
         elif building == "hospital":
-            building_icon = PhotoImage(file="img\\buildings\hospital.png")
+            building_icon = PhotoImage(file="img\\buildings\\hospital.png")
 
         elif building == "big apartment building":
             building_icon = PhotoImage(file="img\\buildings\\buildingHigh.png")
@@ -266,9 +283,9 @@ class Gui:
             building_icon = PhotoImage(file="img\\buildings\\buildingSmall.png")
 
         elif building == "school":
-            building_icon = PhotoImage(file="img\\buildings\school.png")
+            building_icon = PhotoImage(file="img\\buildings\\school.png")
 
         elif building == "kindergarten":
-            building_icon = PhotoImage(file="img\\buildings\kindergarten.png")
+            building_icon = PhotoImage(file="img\\buildings\\kindergarten.png")
 
         return building_icon

@@ -7,7 +7,7 @@ from Street import Street
 
 
 class Generator:
-    def __init__(self, size_x, size_y):
+    def __init__(self, size_y, size_x):
         self.size_x = size_x
         self.size_y = size_y
 
@@ -101,4 +101,28 @@ class Generator:
                         # first row object is independent
                         else:
                             self.generated_map[line].append(Street("street"))
+
+        number_of_buildings = 0
+        number_of_streets = 0
+
+        print("")
+
+        # iterate thru array and print out
+        for line in self.generated_map:
+            for obj in line:
+                if isinstance(obj, Building):
+                    number_of_buildings += 1
+                    print("B", end=" ")
+                if isinstance(obj, Street):
+                    number_of_streets += 1
+                    print("*", end=" ")
+            print("")
+
+        print("")
+        print("Number of buildings:", number_of_buildings)
+        print("Number of streets:", number_of_streets)
+        print("Total number of elements:", number_of_streets+number_of_buildings)
+        print("")
+        print("##############################################################")
+        print("")
         return self.generated_map
