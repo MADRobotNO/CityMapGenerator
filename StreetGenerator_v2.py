@@ -1,7 +1,5 @@
 import random
 
-from operator import xor  # either operator
-
 from Building import Building
 from Street import Street
 

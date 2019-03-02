@@ -1,5 +1,4 @@
-from Generator import *
-from StreetGenerator import *
+
 from StreetGenerator_v2 import *
 
 
